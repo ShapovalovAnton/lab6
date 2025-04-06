@@ -3,18 +3,18 @@ import { Coin } from './сoin';
 describe(`Coin testing`,()=>{
     let coin:Coin;
     beforeEach(()=>
-    coin=new Coin(1, 100, "10 фунтів", 1800, 'Англія'));
+    coin=new Coin(1, '100 UAH', "10 фунтів", 1800, 'Англія'));
     it("Створення екземпляру класу Монета",()=>{
         expect(coin).toBeTruthy();
     });
     it("Створення екземпляру класу Монета з від'ємним id",()=>{
-        expect(()=> new Coin(-1, 100, "10 фунтів", 1800, 'Англія')).toThrow(new Error('id<0'));
+        expect(()=> new Coin(-1, '100 UAH', "10 фунтів", 1800, 'Англія')).toThrow(new Error('id<0'));
     });
-    it("Створення екземпляру класу Монета з від'ємною ціною price",()=>{
-        expect(()=> new Coin(1, -100, "10 фунтів", 1800, 'Англія')).toThrow(new Error('price<=0'));
+    it("Створення екземпляру класу Монета з неправильним форматом ціни price",()=>{
+        expect(()=> new Coin(1, '100', "10 фунтів", 1800, 'Англія')).toThrow(new Error('Неправильний формат price'));
     });
     it("Створення екземпляру класу Монета з від'ємною роком year",()=>{
-        expect(()=> new Coin(1, 100, "10 фунтів", -1800, 'Англія')).toThrow(new Error('year<0'));
+        expect(()=> new Coin(1, '100 UAH', "10 фунтів", -1800, 'Англія')).toThrow(new Error('year<0'));
     });
     it("Тестування методу getCountry",()=>{
         let res=coin.getCountry();
@@ -24,9 +24,13 @@ describe(`Coin testing`,()=>{
         let res=coin.getID();
         expect(res).toEqual(1);
     });
-    it("Тестування методу getPrice",()=>{
-        let res=coin.getPrice();
+    it("Тестування методу getPriceUAH",()=>{
+        let res=coin.getPriceUAH();
         expect(res).toEqual(100);
+    });
+    it("Тестування методу getPriceUSD",()=>{
+        let res=coin.getPriceUSD();
+        expect(res).toEqual(2.5);
     });
     it("Тестування методу getYear",()=>{
         let res=coin.getYear();

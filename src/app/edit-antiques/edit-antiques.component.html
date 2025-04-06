@@ -1,0 +1,104 @@
+<form [formGroup]="antiquesForm" (ngSubmit)="onSubmit()">
+  <!-- Загальні поля -->
+  <ion-card class="course-card">
+    <ion-card-header class="cheader">
+      <ion-card-title>Редагувати товар</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="body">
+      <ion-item>
+        <ion-input
+          label="Назва"
+          formControlName="name"
+          labelPlacement="floating"
+          errorText="Назва повинна бути більше за 3 символи та починатися з великої літери"
+          class="custom"
+          [value]="antiques.getName()">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Вартість в гривнях"
+          formControlName="price"
+          type="string"
+          labelPlacement="floating"
+          errorText="Неправильний формат"
+          class="custom"
+          [value]="antiques.getPriceUAH()">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Рік"
+          formControlName="year"
+          type="number"
+          labelPlacement="floating"
+          errorText="Рік повинен бути більше 1000"
+          class="custom"
+          [value]="antiques.getYear()"
+          >
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Країна"
+          formControlName="country"
+          type="string"
+          labelPlacement="floating"
+          errorText="Країна повинна бути більше за 3 символи та починатися з великої літери"
+          class="custom"
+          [value]="antiques.getCountry()">
+        </ion-input>
+      </ion-item>
+      <fieldset *ngIf="antiques.getType() === types[1]" >
+        <ion-item>
+          <ion-input  label="Автор" formControlName="author" labelPlacement="floating"
+            class="custom" errorText="Повинна бути більше за 3 символи та починатися з великої літери">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Кількість сторінок" formControlName="page" type="number"
+            labelPlacement="floating" errorText="Кількість сторінок повинна бути більше за 5"
+            class="custom">
+          </ion-input>
+        </ion-item>
+
+      </fieldset>
+
+      <fieldset *ngIf="antiques.getType() === types[2]" >
+        <ion-item>
+          <ion-input label="Скульптор" formControlName="sculptor" labelPlacement="floating"
+            class="custom" errorText="Повинна бути більше за 3 символи та починатися з великої літери">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Матеріал" formControlName="material" 
+            labelPlacement="floating"
+            class="custom" errorText="Повинна бути більше за 3 символи">
+          </ion-input>
+        </ion-item>
+
+      </fieldset>
+
+      <fieldset *ngIf="antiques.getType() === types[3]" >
+        <ion-item>
+          <ion-input label="Художник" formControlName="artist" labelPlacement="floating"
+            class="custom" errorText="Повинна бути більше за 3 символи та починатися з великої літери">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input  label="Стиль" formControlName="style" 
+            labelPlacement="floating"
+            class="custom" errorText="Повинна бути більше за 3 символи">
+          </ion-input>
+        </ion-item>
+
+      </fieldset>
+    </ion-card-content>
+  </ion-card>
+  <ion-button type="submit"
+  (click)="onSubmit()"
+  [disabled]="antiquesForm.invalid">
+    Submit
+  </ion-button>
+</form>
+

@@ -4,6 +4,7 @@ export interface IAntiques{
     getYear():number;
     getCountry():string;
     getDetails():string[];
-    getPrice():number;
+    getPriceUSD():number;
+    getPriceUAH():number;
     getType():string;
 }

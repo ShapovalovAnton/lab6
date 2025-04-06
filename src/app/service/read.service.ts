@@ -14,6 +14,12 @@ export class ReadService {
     this.antiques.push(some_antiques);
   }
 
+  removeAntique(index: number) {
+    if (index >= 0 && index < this.antiques.length) {
+      this.antiques.splice(index, 1);
+    }
+  }
+
   
   public async load(){
     this.data=[];
@@ -24,7 +30,6 @@ export class ReadService {
       this.data=this.data.record;
 
       let antiques = this.data.map((item:any)=>AntiquesFactory.createAntiques(item));
-      this.antiques=[];
 
       antiques.forEach((element:any) => this.addAntiques(element));
         
