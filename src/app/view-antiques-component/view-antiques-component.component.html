@@ -1,6 +1,36 @@
 <ion-button (click)="addFormShow()">Додати антикваріат</ion-button>
+<br>
+<ion-button *ngIf="!isFilter" (click)="change_viewFilters()">Фільтрувати</ion-button>
+<ion-card *ngIf="isFilter">
+  <ion-button (click)="change_viewFilters()">Повернутись</ion-button>
+  <ion-card-header>
+    <ion-card-title>Фільтування</ion-card-title>
+  </ion-card-header>
+  
+  <ion-card-content>
+    <ion-card-subtitle>За типом: </ion-card-subtitle>
+    <ion-item *ngFor="let type of antiquesType">
+      <ion-checkbox
+        [checked]="selectedTypes.includes(type)"
+        (ionChange)="toggleType(type, $event.detail.checked)">
+      </ion-checkbox>
+      <ion-label>{{ type }}</ion-label>
+    </ion-item>
+    <ion-card-subtitle>За країною: </ion-card-subtitle>
+    <ion-item *ngFor="let country of antiquesCountry">
+      <ion-checkbox
+        [checked]="selectedCountries.includes(country)"
+        (ionChange)="toggleCountry(country, $event.detail.checked)">
+      </ion-checkbox>
+      <ion-label>{{ country }}</ion-label>
+    </ion-item>
+  </ion-card-content>
+  <ion-button (click)="filters()">Застосувати</ion-button>
+</ion-card>
+  
+  
 <app-add-antiques *ngIf="showAddForm" (antiquesAdd)="addAntiques($event)"></app-add-antiques>
-<ion-card class="course-card" *ngFor="let ant of readService.antiques; index as i">
+<ion-card class="course-card" *ngFor="let ant of visibleAntiques; index as i">
   <ion-card-header class="cheader">
     <ion-card-title>{{ ant.getName() }}</ion-card-title>
     <ion-card-subtitle>{{ ant.getType() }}</ion-card-subtitle>
