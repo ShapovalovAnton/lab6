@@ -4,8 +4,8 @@ export class Painting extends Antiques{
  private artist: string;
  private style: string;
 
- constructor (id:number, price:string, name:string, year:number, country:string, artist:string, style: string){
-    super(id, price, name, year, country);
+ constructor (type:string,id:string, price:number, name:string, year:number, country:string, artist:string, style: string){
+    super(type,id, price, name, year, country);
     this.artist=artist;
     this.style=style;
     

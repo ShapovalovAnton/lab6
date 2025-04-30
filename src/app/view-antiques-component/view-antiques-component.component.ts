@@ -1,3 +1,5 @@
+import { Subscribe } from './../../../node_modules/@firebase/util/dist/src/subscribe.d';
+import { CategoryComponent } from '../category/category.component';
 import { antiquesType, AntiquesType } from './../class/antiguesType';
 import { ConfigService } from './../Lab8/config.service';
 import { ReadService } from './../service/read.service';
@@ -13,20 +15,42 @@ import { AntiquesCountry, antiquesCountry } from '../Lab8/AntiquesCountry';
   selector: 'app-view-antiques-component',
   templateUrl: './view-antiques-component.component.html',
   styleUrls: ['./view-antiques-component.component.scss'],
-  imports: [IonCard, IonCardHeader, IonCheckbox, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, CommonModule, IonCardSubtitle, AddAntiquesComponent, EditAntiquesComponent]
+  imports: [IonCard, IonCardHeader, IonCheckbox, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, CommonModule, IonCardSubtitle, AddAntiquesComponent, EditAntiquesComponent, CategoryComponent]
 })
 export class ViewAntiquesComponentComponent  implements OnInit, OnDestroy {
   antiquesType=antiquesType;
   antiquesCountry =antiquesCountry;
-  selectedTypes: AntiquesType[] = [];
+  selectedTypes: String[] = [];
   selectedCountries: AntiquesCountry[] = [];
 
   private subscriptions: Subscription[]=[];
   constructor(public readService: ReadService, private configService: ConfigService) { }
+  isCategoryShow=false;
+  categoryShow(){
+    this.isCategoryShow=!this.isCategoryShow;
+  }
 
+  addType($event: any){
+    this.readService.addType($event);
+  }
+
+  editType($event: any){
+    this.readService.editType($event);
+    window.location.reload();
+  }
+
+  deleteType(id: string) {
+    this.readService.deleteType(id)
+      .then(() => {
+        window.location.reload();
+      });
+  }
 
   ngOnInit() {
-    this.readService.load();
+    
+    
+
+    this.readService.fetchAll();
   
     this.selectedTypes = this.configService.types$.value.length
     ? [...this.configService.types$.value]
@@ -36,7 +60,7 @@ export class ViewAntiquesComponentComponent  implements OnInit, OnDestroy {
     ? [...this.configService.countries$.value]
     : [...this.antiquesCountry];
 
-  // Підписка лише для оновлення, якщо це зроблено ззовні
+    
   const typeSub = this.configService.types$.subscribe((types) => {
     if (!this.isFilter) {
       this.selectedTypes = [...types];
@@ -54,7 +78,7 @@ export class ViewAntiquesComponentComponent  implements OnInit, OnDestroy {
 
   isFilter = false;
 
-  toggleType(type: AntiquesType, checked: boolean) {
+  toggleType(type: String, checked: boolean) {
     if (checked) {
       this.selectedTypes.push(type);
     } else {
@@ -111,7 +135,11 @@ export class ViewAntiquesComponentComponent  implements OnInit, OnDestroy {
   }
 
   editAntiques($event: any, i:number){
-    this.readService.antiques[i]=$event;
+    const prevId = this.readService.antiques[i].getID();
+    $event.id = prevId;
+    this.readService.antiques[i] = $event;
+    this.readService.editAntiques($event);
+  
     this.showEditForm=false;
   }
 

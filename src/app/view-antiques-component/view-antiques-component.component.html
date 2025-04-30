@@ -1,3 +1,10 @@
+<ion-button (click)="categoryShow()">Категорії</ion-button>
+<app-category
+  *ngIf="isCategoryShow"
+  (typeAdd)="addType($event)"
+  (typeEdit)="editType($event)"
+  (typeDelete)="deleteType($event)">
+</app-category>
 <ion-button (click)="addFormShow()">Додати антикваріат</ion-button>
 <br>
 <ion-button *ngIf="!isFilter" (click)="change_viewFilters()">Фільтрувати</ion-button>
@@ -42,10 +49,7 @@
     </ion-item>
     
     <ion-item>
-      <ion-label class="price">Ціна в гривнях: {{ ant.getPriceUAH() }}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label class="price">Ціна в доларах: {{ ant.getPriceUSD() }}</ion-label>
+      <ion-label class="price">Ціна: {{ ant.getPrice() }}</ion-label>
     </ion-item>
   </ion-card-content>
 

@@ -1,43 +1,27 @@
 import { IAntiques } from './iAntiques';
 
-export abstract class Antiques implements IAntiques {
-    private id: number;
-    private priceUSD: number;
-    private priceUAH: number;
+export class Antiques implements IAntiques {
+    private id: string;
+    private price: number;
     private name: string;
     private year: number;
     private country: string;
+    private type: string;
   
-    constructor(id: number, price: string, name: string, year: number, country: string) {
-      if (id < 0) throw new Error('id<0');
+    constructor(type:string, id: string, price: number, name: string, year: number, country: string) {
       if (year < 0) throw new Error('year<0');
+      if (price <0) throw new Error('price<0');
       this.id = id;
       this.name = name;
       this.year = year;
       this.country = country;
-  
+      this.type=type;
+      this.price=price;
       const rate = 40;
-  
-      const match = price.match(/^(\d+(?:\.\d+)?)\s*(UAH|USD|грн\.?|гривень|дол\.?|доларів|\$)$/i);
-  if (!match) throw new Error('Неправильний формат price');
 
-  const amount = parseFloat(match[1]);
-  const currencyRaw = match[2].toUpperCase();
-
-  if (amount <= 0) throw new Error('Ціна має бути більшою за 0');
-
-  const currency = ['USD', 'ДОЛ', 'ДОЛ.', 'ДОЛАРІВ', '$'].includes(currencyRaw) ? 'USD' : 'UAH';
-
-  if (currency === 'USD') {
-    this.priceUSD = amount;
-    this.priceUAH = amount * rate;
-  } else {
-    this.priceUAH = amount;
-    this.priceUSD = amount / rate;
-  }
     }
 
-getID(): number {
+getID(): string {
     return this.id;
 }
 
@@ -60,16 +44,12 @@ getName(): string {
     return this.name
 }
 
-public getPriceUSD(): number {
-    return this.priceUSD;
-  }
-
-  public getPriceUAH(): number {
-    return this.priceUAH;
+public getPrice(): number {
+    return this.price;
   }
 
 getType(): string {
-    return 'Antiques';
+    return this.type;
 }
 
 }

@@ -18,11 +18,11 @@
         <ion-input
           label="Вартість в гривнях"
           formControlName="price"
-          type="string"
+          type="number"
           labelPlacement="floating"
           errorText="Неправильний формат"
           class="custom"
-          [value]="antiques.getPriceUAH()">
+          [value]="antiques.getPrice()">
         </ion-input>
       </ion-item>
       <ion-item>

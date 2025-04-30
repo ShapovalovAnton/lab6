@@ -29,8 +29,7 @@ export class EditAntiquesComponent  implements OnInit {
   if (this.antiquesForm.valid) {
     const formData = this.antiquesForm.value;
     formData.type = this.antiques.getType();
-    formData.price = formData.price + " грн";
-    formData.id=10;
+    formData.id=this.antiques.getID;
     const antiques = AntiquesFactory.createAntiques(formData);
     console.log('Успішно створено: ', antiques);
     this.antiquesEdit.emit(antiques);
@@ -45,7 +44,7 @@ export class EditAntiquesComponent  implements OnInit {
         this.antiques.getName(), [Validators.required,upperCaseValidator()]
       ],
       price:[
-        this.antiques.getPriceUAH(), [Validators.required,Validators.min(10)]
+        this.antiques.getPrice(), [Validators.required,Validators.min(10)]
       ],
       country:[
         this.antiques.getCountry(), [Validators.required,upperCaseValidator()]

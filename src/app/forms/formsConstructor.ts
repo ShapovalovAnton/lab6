@@ -1,5 +1,4 @@
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
-import { AntiquesType, antiquesType } from '../class/antiguesType'
 import { upperCaseValidator } from '../service/validators';
 
 export function formConstructor( type:string, antiquesForm:FormGroup, fb:FormBuilder){
@@ -19,17 +18,17 @@ export function formConstructor( type:string, antiquesForm:FormGroup, fb:FormBui
         }
     });
 
-    if (type===antiquesType[1]){
+    if (type==="Book"){
         antiquesForm.addControl('author', fb.control('',[Validators.required, upperCaseValidator] ))
         antiquesForm.addControl('page', fb.control('', [Validators.required, Validators.min(5)]))
     }
 
-    else if (type===antiquesType[2]){
+    else if (type==="Statue"){
         antiquesForm.addControl('sculptor', fb.control('', [Validators.required, upperCaseValidator]))
         antiquesForm.addControl('material', fb.control('', [Validators.required, Validators.minLength(3)]))
     }
 
-    else if (type===antiquesType[3]){
+    else if (type==="Painting"){
         antiquesForm.addControl('artist', fb.control('', [Validators.required, upperCaseValidator]))
         antiquesForm.addControl('style', fb.control('', [Validators.required, Validators.minLength(3)]))
     }

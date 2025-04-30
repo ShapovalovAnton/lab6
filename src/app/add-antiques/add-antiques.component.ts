@@ -15,8 +15,9 @@ import { priceValidator, upperCaseValidator } from '../service/validators';
 })
 export class AddAntiquesComponent  implements OnInit {
   antiquesForm: FormGroup;
-  currentType: AntiquesType ='Coin';
+  currentType: any ='Coin';
   types=antiquesType;
+  
 
   @Output() antiquesAdd: EventEmitter<IAntiques> = new EventEmitter<IAntiques>();
   constructor(private fb: FormBuilder){
@@ -24,13 +25,13 @@ export class AddAntiquesComponent  implements OnInit {
       name: ["", [Validators.required, upperCaseValidator()]],
       year: ["", [Validators.required, Validators.min(1000)]],
       country: ["", [Validators.required, upperCaseValidator()]],
-      price: ["", [Validators.required, priceValidator()]]
+      price: ["", [Validators.required, Validators.min(1)]]
 
     });
   }
 
   onTypeChange(type:any): void {
-    this.currentType= type as AntiquesType;
+    this.currentType= type;
     formConstructor(type, this.antiquesForm, this.fb)
   }
 
@@ -40,7 +41,7 @@ export class AddAntiquesComponent  implements OnInit {
   if (this.antiquesForm.valid) {
     const formData = this.antiquesForm.value;
     formData.type = this.currentType;
-    formData.id=10;
+    formData.id="10";
     const antiques = AntiquesFactory.createAntiques(formData);
     console.log('Успішно створено: ', antiques);
     this.antiquesAdd.emit(antiques);

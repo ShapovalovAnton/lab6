@@ -17,7 +17,7 @@
         <ion-input
           label="Вартість"
           formControlName="price"
-          type="string"
+          type="number"
           labelPlacement="floating"
           errorText="Неправильний формат"
           class="custom">
@@ -44,64 +44,59 @@
         </ion-input>
       </ion-item>
       <ion-segment (ionChange)="onTypeChange($event.detail.value)">
-        <ion-segment-button value="Coin" content-id="Coin">
-          <ion-label>Монети</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Book" content-id="Book">
-          <ion-label>Книги</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Statue" content-id="Statue">
-          <ion-label>Статуї</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Painting" content-id="Painting">
-          <ion-label>Картини</ion-label>
+        <ion-segment-button 
+          *ngFor="let type of types" 
+          [value]="type" 
+          [contentId]="type">
+          <ion-label>{{ type }}</ion-label>
         </ion-segment-button>
       </ion-segment>
       
-      <ion-segment-view>
-        <ion-segment-content id="Coin"></ion-segment-content>
-        <ion-segment-content id="Book">
+      <ion-segment-view [ngSwitch]="currentType">
+     
+        <ion-segment-content *ngSwitchCase="'Book'" id="Book">
           <ion-item>
-            <ion-input *ngIf="currentType === types[1]" label="Автор" formControlName="author" labelPlacement="floating"
+            <ion-input label="Автор" formControlName="author" labelPlacement="floating"
               class="custom" errorText="Повинна бути більше за 3 символи та починатися з великої літери">
             </ion-input>
           </ion-item>
           <ion-item>
-            <ion-input *ngIf="currentType === types[1]" label="Кількість сторінок" formControlName="page" type="number"
+            <ion-input label="Кількість сторінок" formControlName="page" type="number"
               labelPlacement="floating" errorText="Кількість сторінок повинна бути більше за 5"
               class="custom">
             </ion-input>
           </ion-item>
         </ion-segment-content>
       
-
-      
-        <ion-segment-content id="Statue">
+        <ion-segment-content *ngSwitchCase="'Statue'" id="Statue">
           <ion-item>
-            <ion-input *ngIf="currentType === types[2]" label="Скульптор" formControlName="sculptor" labelPlacement="floating"
+            <ion-input label="Скульптор" formControlName="sculptor" labelPlacement="floating"
               class="custom" errorText="Повинна бути більше за 3 символи та починатися з великої літери">
             </ion-input>
           </ion-item>
           <ion-item>
-            <ion-input *ngIf="currentType === types[2]" label="Матеріал" formControlName="material" 
+            <ion-input label="Матеріал" formControlName="material" 
               labelPlacement="floating"
               class="custom" errorText="Повинна бути більше за 3 символи">
             </ion-input>
           </ion-item>
         </ion-segment-content>
-
-        <ion-segment-content id="Painting">
+      
+        <ion-segment-content *ngSwitchCase="'Painting'" id="Painting">
           <ion-item>
-            <ion-input *ngIf="currentType === types[3]" label="Художник" formControlName="artist" labelPlacement="floating"
+            <ion-input label="Художник" formControlName="artist" labelPlacement="floating"
               class="custom" errorText="Повинна бути більше за 3 символи та починатися з великої літери">
             </ion-input>
           </ion-item>
           <ion-item>
-            <ion-input *ngIf="currentType === types[3]" label="Стиль" formControlName="style" 
+            <ion-input label="Стиль" formControlName="style" 
               labelPlacement="floating"
               class="custom" errorText="Повинна бути більше за 3 символи">
             </ion-input>
           </ion-item>
+        </ion-segment-content>
+      
+        <ion-segment-content *ngSwitchDefault>
         </ion-segment-content>
       
       </ion-segment-view>

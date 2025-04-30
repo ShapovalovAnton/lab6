@@ -4,9 +4,9 @@ export class Book extends Antiques{
  private author: string;
  private page: number;
 
- constructor (id:number, price:string, name:string, year:number, country:string, author:string, page: number){
+ constructor (type:string, id:string, price:number, name:string, year:number, country:string, author:string, page: number){
     if(page<=0) throw new Error ('page<=0');
-    super(id, price, name, year, country);
+    super(type, id, price, name, year, country);
     this.author=author;
     this.page=page;
     

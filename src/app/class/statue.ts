@@ -4,8 +4,8 @@ export class Statue extends Antiques{
  private sculptor: string;
  private material: string;
 
- constructor (id:number, price:string, name:string, year:number, country:string, sculptor:string, material: string){
-    super(id, price, name, year, country);
+ constructor (type:string,id:string, price:number, name:string, year:number, country:string, sculptor:string, material: string){
+    super(type,id, price, name, year, country);
     this.sculptor=sculptor;
     this.material=material;
     

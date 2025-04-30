@@ -10,10 +10,10 @@ import { AntiquesCountry, antiquesCountry } from './AntiquesCountry';
 
 export class ConfigService {
 
-  types$: BehaviorSubject<AntiquesType[]> = new BehaviorSubject<AntiquesType[]>([]);
+  types$: BehaviorSubject<String[]> = new BehaviorSubject<String[]>([]);
   countries$: BehaviorSubject<AntiquesCountry[]> = new BehaviorSubject<AntiquesCountry[]>([]);
   
-  setType(type:AntiquesType[]){
+  setType(type:String[]){
     console.log('Є зміни!');
     this.types$.next(type);
   }

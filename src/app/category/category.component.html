@@ -1,0 +1,30 @@
+<ion-card>
+<ion-card-content>
+  <ion-card-subtitle>Наявні типи: </ion-card-subtitle>
+  <ion-item *ngFor="let type of antiquesType">
+    <ion-label *ngIf="editId !== type.id">{{ type.typeName }}</ion-label>
+    <ion-input
+    *ngIf="editId === type.id"
+    [value]="type.typeName"
+    (ionInput)="type.typeName = $event.target['value']"
+    labelPlacement="floating"
+    class="custom">
+  </ion-input>
+    <ion-button *ngIf="type.typeName !== 'Coin' && type.typeName !== 'Book' && type.typeName !== 'Statue' && type.typeName !== 'Painting'" (click)="startEdit(type)">Редагувати</ion-button>
+    <ion-button *ngIf="editId === type.id" (click)="onEdit(type, type.typeName); finishEdit()">>Зберегти</ion-button>
+    <ion-button *ngIf="type.typeName !== 'Coin' && type.typeName !== 'Book' && type.typeName !== 'Statue' && type.typeName !== 'Painting'" (click)="onDelete(type)">Видалити</ion-button>
+  </ion-item>
+  <ion-item *ngIf="isAddShow">
+    <ion-input
+          label="Назва"
+          labelPlacement="floating"
+          class="custom"
+          id="newType"
+          #newTypeInput>
+    </ion-input>
+    <ion-button (click)="onAdd(newTypeInput.value)">Створити</ion-button>
+    <ion-button (click)="AddShow()">Скасувати</ion-button>
+  </ion-item>
+</ion-card-content>
+<ion-button *ngIf="!isAddShow" (click)="AddShow()">Додати</ion-button>
+</ion-card>
