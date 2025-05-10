@@ -10,12 +10,14 @@ import { AddAntiquesComponent } from '../add-antiques/add-antiques.component';
 import { EditAntiquesComponent } from '../edit-antiques/edit-antiques.component';
 import { Subscription } from 'rxjs';
 import { AntiquesCountry, antiquesCountry } from '../Lab8/AntiquesCountry';
+import { AgePipe } from '../pipe/agePipe';
+import { FilterByEpochComponent } from '../filter-by-epoch/filter-by-epoch.component';
 
 @Component({
   selector: 'app-view-antiques-component',
   templateUrl: './view-antiques-component.component.html',
   styleUrls: ['./view-antiques-component.component.scss'],
-  imports: [IonCard, IonCardHeader, IonCheckbox, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, CommonModule, IonCardSubtitle, AddAntiquesComponent, EditAntiquesComponent, CategoryComponent]
+  imports: [AgePipe, IonCard, IonCardHeader, IonCheckbox, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, CommonModule, IonCardSubtitle, AddAntiquesComponent, EditAntiquesComponent, CategoryComponent, FilterByEpochComponent]
 })
 export class ViewAntiquesComponentComponent  implements OnInit, OnDestroy {
   antiquesType=antiquesType;
@@ -25,6 +27,12 @@ export class ViewAntiquesComponentComponent  implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[]=[];
   constructor(public readService: ReadService, private configService: ConfigService) { }
+
+  isShowFilterByEpoch=false;
+  change_isShowFilterByEpoch(){
+    this.isShowFilterByEpoch=!this.isShowFilterByEpoch;
+  }
+  
   isCategoryShow=false;
   categoryShow(){
     this.isCategoryShow=!this.isCategoryShow;

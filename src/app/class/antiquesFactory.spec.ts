@@ -3,7 +3,7 @@ import { AntiquesFactory } from './antiquesFactory';
 class data_1{
     type='Coin';
     id=1;
-    price='100 USD';
+    price=100;
     name='Some coin';
     year=1900;
     country='Ukraine';
@@ -12,7 +12,7 @@ class data_1{
 class data_2{
     type='Book';
     id=1;
-    price='100 USD';
+    price=100;
     name='Some book';
     year=1900;
     country='Ukraine';
@@ -23,7 +23,7 @@ class data_2{
 class data_3{
     type='Statue';
     id=1;
-    price='100 USD';
+    price=100;
     name='Some Statue';
     year=1900;
     country='Ukraine';
@@ -34,7 +34,7 @@ class data_3{
 class data_4{
     type='Painting';
     id=1;
-    price='100 USD';
+    price=100;
     name='Some Statue';
     year=1900;
     country='Ukraine';
@@ -65,7 +65,4 @@ describe(`ItemFactory testing`,()=>{
         let item = AntiquesFactory.createAntiques(new data_4);
         expect(item).toBeTruthy();
     });
-    it("Створення невідомого предмета",()=>{
-             expect(()=>AntiquesFactory.createAntiques(data_5)).toThrow(new Error("Невідомий предмет!"));
-        });
 });

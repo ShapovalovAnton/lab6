@@ -8,6 +8,13 @@
 <ion-button (click)="addFormShow()">Додати антикваріат</ion-button>
 <br>
 <ion-button *ngIf="!isFilter" (click)="change_viewFilters()">Фільтрувати</ion-button>
+<br>
+<ion-button *ngIf="!isShowFilterByEpoch" (click)="change_isShowFilterByEpoch()">За епохою</ion-button>
+
+<ion-button *ngIf="isShowFilterByEpoch" (click)="change_isShowFilterByEpoch()">Повернутись</ion-button>
+<app-filter-by-epoch *ngIf="isShowFilterByEpoch" [antiques]="readService.antiques"></app-filter-by-epoch>
+
+
 <ion-card *ngIf="isFilter">
   <ion-button (click)="change_viewFilters()">Повернутись</ion-button>
   <ion-card-header>
@@ -37,6 +44,7 @@
   
   
 <app-add-antiques *ngIf="showAddForm" (antiquesAdd)="addAntiques($event)"></app-add-antiques>
+<div *ngIf="!isShowFilterByEpoch" >
 <ion-card class="course-card" *ngFor="let ant of visibleAntiques; index as i">
   <ion-card-header class="cheader">
     <ion-card-title>{{ ant.getName() }}</ion-card-title>
@@ -51,6 +59,9 @@
     <ion-item>
       <ion-label class="price">Ціна: {{ ant.getPrice() }}</ion-label>
     </ion-item>
+    <ion-item>
+      <ion-label>Вік: {{ ant | age}}</ion-label>
+    </ion-item>
   </ion-card-content>
 
   <ion-button>Купити</ion-button>
@@ -59,3 +70,5 @@
   <app-edit-antiques *ngIf="showEditForm && i == editFormnumber"
   (antiquesEdit)="editAntiques($event, i)" [antiques]="readService.antiques[i]"></app-edit-antiques>
 </ion-card>
+</div>
+
